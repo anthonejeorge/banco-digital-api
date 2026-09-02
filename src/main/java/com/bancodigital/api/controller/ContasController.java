@@ -31,25 +31,25 @@ import lombok.AllArgsConstructor;
 @Tag(name = SwaggerConfig.CONTAS_TAG, description = "Endpoints para gerenciamento de contas")
 public class ContasController {
 
-    private ContasService contasService;
+    private final ContasService service;
 
     @GetMapping
     @Operation(summary = "Buscar todas as contas")
     public ResponseEntity<List<Conta>> buscarContas() {
-        return ResponseEntity.ok(contasService.buscarContas());
+        return ResponseEntity.ok(service.buscarContas());
     }
 
     @GetMapping(path = {"/{id}"})
     @Operation(summary = "Buscar uma conta por identificador")
     public ResponseEntity<Conta> buscarContaPorId(@PathVariable Long id) {
-        Optional<Conta> conta = contasService.buscarContaPorId(id);
+        Optional<Conta> conta = service.buscarContaPorId(id);
         return conta.isPresent() ? ResponseEntity.ok(conta.get()) : ResponseEntity.noContent().build();
     }
 
     @PostMapping
     @Operation(summary = "Criar uma conta")
     public ResponseEntity<Conta> criarConta(@Valid @RequestBody Conta dadosConta) throws Exception {
-        Conta conta = contasService.criarConta(dadosConta);
+        Conta conta = service.criarConta(dadosConta);
         return ResponseEntity.status(HttpStatus.CREATED).body(conta);
     }
 
@@ -57,14 +57,14 @@ public class ContasController {
     @PatchMapping(path = {"/{id}/adicionar-saldo"})
     @Operation(summary = "Adicionar saldo em uma conta")
     public ResponseEntity<Optional<ContaDto>> adicionarSaldo(@PathVariable Long id, @Valid @RequestBody ContaDto contaSaldoAdicional) {
-        contasService.adicionarSaldo(id, contaSaldoAdicional);
+        service.adicionarSaldo(id, contaSaldoAdicional);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(path = {"/{id}"})
     @Operation(summary = "Remover uma conta por identificador")
     public ResponseEntity<Optional<Conta>> removerConta(@PathVariable Long id) {
-        contasService.removerConta(id);
+        service.removerConta(id);
         return ResponseEntity.ok().build();
     }
 }
