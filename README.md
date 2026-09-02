@@ -46,6 +46,11 @@ $ docker-compose up --build
 > **Note:**   
 > A aplicação estará escutando na porta <b>8088</b>.
 
+Para rodar a aplicação localmente em modo desenvolvimento na porta 8089, use o seguinte comando:
+
+```bash
+mvnw spring-boot:run -Dspring-boot.run.profiles=local
+```
 
 ## Documentação
 
