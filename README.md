@@ -17,7 +17,7 @@
 
 ## Tecnologias
 
-The project has been developed with the following technologies:
+O projeto foi desenvolvido com as seguinte tecnologias:
 
 * **Java 21**
 * **Spring Boot 4.1.1**
