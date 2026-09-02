@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -45,6 +46,13 @@ public class GlobalExceptionHandler {
         }
         
         return Map.of("erro", "Validação de campo falhou.", "campos", erros);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, Object> handleValidationExceptions(HttpMessageNotReadableException ex) {
+        String mensagem = ex.getMessage() != null ? ex.getMessage() : "Erro inesperado";
+        return Map.of("erro", "A requisição falhou.", "mensagem", mensagem);
     }
     
 }

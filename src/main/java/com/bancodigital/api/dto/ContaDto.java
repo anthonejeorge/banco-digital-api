@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,8 @@ public class ContaDto {
 
     @Schema(description = "Valor em reais (R$)", example = "6.95")
     @Positive(message="O valor para adicionar ao saldo não pode ser menor ou igual a 0 (zero)")
+    @NotNull(message="O valor para adicionar ao saldo não pode ser nulo")
 	@Digits(integer = 10, fraction = 6)
-    private BigDecimal saldo;
+    private BigDecimal valor;
     
 }

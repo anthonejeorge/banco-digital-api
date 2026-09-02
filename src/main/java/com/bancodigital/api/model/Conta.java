@@ -4,6 +4,7 @@ package com.bancodigital.api.model;
 import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
+@Entity
 @NoArgsConstructor
 @Table(name = "contas")
 public class Conta {
@@ -32,6 +35,7 @@ public class Conta {
 
     @Schema(description = "Valor em reais (R$)", example = "6.95")
     @DecimalMin(value="0.0", message="O valor do saldo não pode ser menor do que 0 (zero)")
+    @NotNull(message="O valor para adicionar ao saldo não pode ser nulo")
 	@Digits(integer = 10, fraction = 6)
     private BigDecimal saldo;
 

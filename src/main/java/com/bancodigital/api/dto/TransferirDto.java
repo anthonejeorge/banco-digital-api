@@ -26,6 +26,7 @@ public class TransferirDto {
 
     @Schema(description = "Valor em reais (R$)", example = "6.95")
     @Positive(message="O valor para adicionar ao saldo não pode ser menor ou igual a 0 (zero)")
+    @NotNull(message = "O valor para transferência não pode ser nulo")
 	@Digits(integer = 10, fraction = 6)
     private BigDecimal valor;
 }
