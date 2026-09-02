@@ -76,7 +76,7 @@ POST /contas
 <h5>Adicionar saldo em uma conta</h5>
 
 ```bash
-POST /contas/{contaId}/saldo
+PATCH /contas/{contaId}/adicionar-saldo
 ```
 
 <h5>Remover uma conta por identificador</h5>
