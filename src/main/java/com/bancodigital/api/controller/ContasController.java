@@ -17,45 +17,54 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bancodigital.api.config.SwaggerConfig;
 import com.bancodigital.api.dto.ContaDto;
 import com.bancodigital.api.model.Conta;
+import com.bancodigital.api.service.ContasService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/contas")
 @Tag(name = SwaggerConfig.CONTAS_TAG, description = "Endpoints para gerenciamento de contas")
 public class ContasController {
 
+    private ContasService contasService;
+
     @GetMapping
     @Operation(summary = "Buscar todas as contas")
     public ResponseEntity<List<Conta>> buscarContas() {
-        return ResponseEntity.ok(List.of(new Conta(1L, "teste1"), new Conta(2L, "teste2"), new Conta(3L, "teste3")));
+        return ResponseEntity.ok(contasService.buscarContas());
     }
 
     @GetMapping(path = {"/{id}"})
     @Operation(summary = "Buscar uma conta por identificador")
     public ResponseEntity<Conta> buscarContaPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(new Conta(id, "test"));
+        Optional<Conta> conta = contasService.buscarContaPorId(id);
+        return conta.isPresent() ? ResponseEntity.ok(conta.get()) : ResponseEntity.noContent().build();
     }
 
     @PostMapping
     @Operation(summary = "Criar uma conta")
-    public ResponseEntity<Conta> criarConta(@Valid @RequestBody Conta conta) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(new Conta(1L, conta.getNome()));
+    public ResponseEntity<Conta> criarConta(@Valid @RequestBody Conta dadosConta) throws Exception {
+        Conta conta = contasService.criarConta(dadosConta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(conta);
     }
 
     
     @PatchMapping(path = {"/{id}/adicionar-saldo"})
     @Operation(summary = "Adicionar saldo em uma conta")
     public ResponseEntity<Optional<ContaDto>> adicionarSaldo(@PathVariable Long id, @Valid @RequestBody ContaDto contaSaldoAdicional) {
-        return ResponseEntity.ok(null);
+        contasService.adicionarSaldo(id, contaSaldoAdicional);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(path = {"/{id}"})
     @Operation(summary = "Remover uma conta por identificador")
     public ResponseEntity<Optional<Conta>> removerConta(@PathVariable Long id) {
-        return ResponseEntity.accepted().body(null);
+        contasService.removerConta(id);
+        return ResponseEntity.ok().build();
     }
 }
