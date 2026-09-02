@@ -4,9 +4,19 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:bancodigital
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    show-sql: true
 
 server:
-  port: 8088
+  port: 8089
 
 # swagger-ui custom path
 springdoc:
