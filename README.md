@@ -55,7 +55,7 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 ## Documentação
 
 ```bash
-http://localhost:8088/swagger-ui/
+http://localhost:8088/swagger-ui/index.html
 ```
 
 <h3>Recursos disponíveis:</h4>

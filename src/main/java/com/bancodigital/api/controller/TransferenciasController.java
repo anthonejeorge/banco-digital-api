@@ -1,5 +1,7 @@
 package com.bancodigital.api.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +30,7 @@ public class TransferenciasController {
     @Operation(summary = "Transferir saldo entre contas")
     public ResponseEntity<?> transferirEntreContas(@Valid @RequestBody TransferirDto transferenciaEntreContas) {
         service.efetuarTransferencia(transferenciaEntreContas.getContaRemetenteId(), transferenciaEntreContas.getContaFavorecidaId(), transferenciaEntreContas.getValor());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Map.of("mensagem", "Transferência concluída com sucesso!"));
     }
     
 }
