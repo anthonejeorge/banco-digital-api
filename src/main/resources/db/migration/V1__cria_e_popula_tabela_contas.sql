@@ -11,4 +11,4 @@ INSERT INTO contas (nome, saldo) VALUES ('Karl Souza', 450.50);
 INSERT INTO contas (nome, saldo) VALUES ('John Santos', 50.50);
 INSERT INTO contas (nome, saldo) VALUES ('Maria Oliveira', 4500.00);
 INSERT INTO contas (nome, saldo) VALUES ('Darcy Ribeiro', 4.00);
-INSERT INTO contas (nome, saldo) VALUES ('Mc Maya, 48000.00);
+INSERT INTO contas (nome, saldo) VALUES ('Mc Maya', 48000.00);
